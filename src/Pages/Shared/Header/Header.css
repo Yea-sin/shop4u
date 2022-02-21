@@ -1,0 +1,6 @@
+.header-bg {
+  border-bottom: 1px solid black;
+}
+.links:hover {
+  border-bottom: 1px solid #ffff;
+}
