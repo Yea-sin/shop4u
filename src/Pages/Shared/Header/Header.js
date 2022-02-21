@@ -1,29 +1,33 @@
 import React from "react";
 import "./Header.css";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 const Header = () => {
   return (
     <>
       <Navbar className="header-bg" variant="light" expand="lg" fixed="top">
         <Container>
-          <Navbar.Brand href="#home">
-            <h2>
-              <span className="text-info">Shop</span>
-              <span className="text-dark">4</span>
-              <span className="text-info">u</span>
-            </h2>
-          </Navbar.Brand>
+          <Link className="text-decoration-none" to="/home">
+            <Navbar.Brand>
+              <h2>
+                <span className="text-info">Shop</span>
+                <span className="text-dark">4</span>
+                <span className="text-info">u</span>
+              </h2>
+            </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link className="links" active href="#home">
+              <Nav.Link as={HashLink} to="/home" className="links" active>
                 Home
               </Nav.Link>
-              <Nav.Link className="links" active href="#link">
+              <Nav.Link as={HashLink} to="/home#about" className="links" active>
                 About
               </Nav.Link>
-              <Nav.Link className="links" active href="#link">
+              <Nav.Link as={HashLink} to="/blog" className="links" active>
                 Blog
               </Nav.Link>
               <NavDropdown active title="User" id="basic-nav-dropdown">
@@ -40,6 +44,9 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
+            <Link to="/login">
+              <Button variant="outline-info">Login</Button>{" "}
+            </Link>
           </Navbar.Collapse>
         </Container>
       </Navbar>
