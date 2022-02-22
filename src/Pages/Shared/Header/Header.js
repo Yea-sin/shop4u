@@ -3,8 +3,10 @@ import "./Header.css";
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import useFirebase from "../../../Hooks/useFirebase";
 
 const Header = () => {
+  const { user, logOut } = useFirebase();
   return (
     <>
       <Navbar className="header-bg" variant="light" expand="lg" fixed="top">
@@ -44,9 +46,18 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Link to="/login">
-              <Button variant="outline-info">Login</Button>{" "}
-            </Link>
+            {user?.email ? (
+              <div>
+                {" "}
+                <Button onClick={logOut} variant="outline-info">
+                  Logout
+                </Button>{" "}
+              </div>
+            ) : (
+              <Link to="/login">
+                <Button variant="outline-info">Login</Button>{" "}
+              </Link>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>

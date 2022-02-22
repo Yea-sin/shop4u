@@ -1,10 +1,13 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import useFirebase from "../../../../Hooks/useFirebase";
 
 const Register = () => {
   const handleForm = (e) => {
     e.preventDefault();
   };
+  const { singInUsingGoogle, user } = useFirebase();
   return (
     <>
       <div className="container my-5">
@@ -41,11 +44,16 @@ const Register = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <button
-                    type="submit"
-                    className="btn btn-color px-5 mb-5 w-100">
+                  <button type="submit" className="btn btn-color px-5 w-100">
                     Register
                   </button>
+                  <p>-------------or-----------</p>
+                  <Button
+                    onClick={singInUsingGoogle}
+                    className="mb-3"
+                    variant="outline-info">
+                    Register with google
+                  </Button>{" "}
                 </div>
                 <div
                   id="emailHelp"
