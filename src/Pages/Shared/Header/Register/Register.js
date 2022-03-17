@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import useFirebase from "../../../../Hooks/useFirebase";
+import useAuth from "../../../../Hooks/useAuth";
 
 const Register = () => {
+  const emailRef = useRef();
+  const passRef = useRef();
   const handleForm = (e) => {
+    const email = emailRef.current.value;
+    const pass = passRef.current.value;
+    register(email, pass)
     e.preventDefault();
   };
-  const { singInUsingGoogle, user } = useFirebase();
+  const { singInUsingGoogle, user, register } = useAuth();
   return (
     <>
       <div className="container my-5">
@@ -29,6 +34,8 @@ const Register = () => {
 
                 <div className="mb-3">
                   <input
+                  ref={emailRef}
+                  name="email"
                     type="email"
                     className="form-control"
                     id="Email"
@@ -37,6 +44,8 @@ const Register = () => {
                 </div>
                 <div className="mb-3">
                   <input
+                  ref={passRef}
+                  name="pass"
                     type="password"
                     className="form-control"
                     id="password"

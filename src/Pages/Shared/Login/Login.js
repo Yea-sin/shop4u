@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import useFirebase from "../../../Hooks/useFirebase";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
 import "./Login.css";
 
 const Login = () => {
+  const { singInUsingGoogle, user, isLoading, loginUser } = useAuth();
+  const emailRef = useRef();
+  const passRef = useRef();
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleForm = (e) => {
+    const email = emailRef.current.value;
+    const pass = passRef.current.value;
+    loginUser(email,pass)
     e.preventDefault();
   };
-  const { singInUsingGoogle, user } = useFirebase();
   return (
     <>
       {user?.email ? (
@@ -37,6 +44,8 @@ const Login = () => {
                   </div>
                   <div className="mb-3">
                     <input
+                    ref={emailRef}
+                    name="email"
                       type="email"
                       className="form-control"
                       id="Email"
@@ -45,6 +54,8 @@ const Login = () => {
                   </div>
                   <div className="mb-3">
                     <input
+                    ref={passRef}
+                    name="pass"
                       type="password"
                       className="form-control"
                       id="password"
@@ -57,7 +68,7 @@ const Login = () => {
                     </button>
                     <p>-------------or-----------</p>
                     <Button
-                      onClick={singInUsingGoogle}
+                      onClick={()=>singInUsingGoogle(location, navigate)}
                       className="mb-3"
                       variant="outline-info">
                       Login with google

@@ -3,10 +3,10 @@ import "./Header.css";
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import useFirebase from "../../../Hooks/useFirebase";
+import useAuth from "../../../Hooks/useAuth";
 
 const Header = () => {
-  const { user, logOut } = useFirebase();
+  const { user, logOut } = useAuth();
   return (
     <>
       <Navbar className="header-bg" variant="light" expand="lg" fixed="top">
@@ -32,18 +32,10 @@ const Header = () => {
               <Nav.Link as={HashLink} to="/blog" className="links" active>
                 Blog
               </Nav.Link>
-              <NavDropdown active title="User" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
+              <NavDropdown active title={user?.displayName || user?.email || 'User'} id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Add Product</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Manage Product</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">My Orders</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             {user?.email ? (
